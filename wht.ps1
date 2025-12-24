@@ -4,9 +4,7 @@
 .DESCRIPTION
     Remembers selected WiFi adapter between sessions only when manual selection is needed
 .NOTES
-    Fixed a problem where the script would throw an error for not finding the Windows Runtime System Extensions.
-    Minor fixes.
-    Changed the name of the script to a shorthand
+    Added BurntToast notification support for non-interactive execution.
 #>
 
 # ==== Assembly Loading (Fixes TypeNotFound Error) ====
