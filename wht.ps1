@@ -25,7 +25,7 @@ try {
 # ==== Script Version ====
 
     # This is automatically updated via pre-commit hook
-    $scriptVersion = "1.0.9"
+    $scriptVersion = "1.0.10"
 
     # Config file path
     $configFile = "$PSScriptRoot\adapter.config"
@@ -434,4 +434,4 @@ LogThis ""
 # Keep console open briefly
 # Start-Sleep -Seconds 2
 
-Pause
+# Pause
