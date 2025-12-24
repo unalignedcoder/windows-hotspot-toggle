@@ -25,7 +25,7 @@ try {
 # ==== Script Version ====
 
     # This is automatically updated via pre-commit hook
-    $scriptVersion = "1.0.8"
+    $scriptVersion = "1.0.9"
 
     # Config file path
     $configFile = "$PSScriptRoot\adapter.config"
