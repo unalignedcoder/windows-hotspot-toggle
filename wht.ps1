@@ -4,9 +4,7 @@
 .DESCRIPTION
     Remembers selected WiFi adapter between sessions only when manual selection is needed
 .NOTES
-    Fixed a problem where the script would throw an error for not finding the Windows Runtime System Extensions.
-    Minor fixes.
-    Changed the name of the script to a shorthand
+    Added BurntToast notification support for non-interactive execution.
 #>
 
 # ==== Assembly Loading (Fixes TypeNotFound Error) ====
@@ -27,7 +25,7 @@ try {
 # ==== Script Version ====
 
     # This is automatically updated via pre-commit hook
-    $scriptVersion = "1.0.8"
+    $scriptVersion = "1.0.10"
 
     # Config file path
     $configFile = "$PSScriptRoot\adapter.config"
@@ -436,4 +434,4 @@ LogThis ""
 # Keep console open briefly
 # Start-Sleep -Seconds 2
 
-Pause
+# Pause
