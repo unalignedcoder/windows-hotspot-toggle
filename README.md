@@ -4,14 +4,17 @@ PowerShell script to toggle the WiFi hotspot on Windows 10/11 without using depr
 
 ## Features  
 
-**Modern Implementation** - Uses Windows Runtime API instead of legacy `netsh`  
-**Automatic Adapter Detection** - Finds WiFi adapters intelligently  
-**Task Scheduler Ready** - Perfect for automated startup/scheduled activation  
-**Comprehensive Logging** - Detailed logs for troubleshooting  
-**User-Friendly** - Remembers your adapter selection  
-**Firewall Compatible** - Includes WiFi reset functionality, for compatibility with firewalls such as Comodo
+This script is meant to automatically enable or disable the Windows Hotspot.
+In order for it to properly work and be firewall-firendly, some workarounds have been included:
+the wifi radio is turned off, optionally the adpater itself is reset before operation.
+
+In our tests this should work at startup as well, so as to have the hotspot always running. 
 
 ## Usage
+
+### Check configuration segment in the script
+
+<img width="692" height="272" alt="image" src="https://github.com/user-attachments/assets/4514fff1-2f2e-497a-a62b-4882d2480bc3" />
 
 ### Run script in terminal
 `.\toggle-hotspot.ps1`
@@ -19,15 +22,7 @@ PowerShell script to toggle the WiFi hotspot on Windows 10/11 without using depr
 ### Run as a shortcut, or in Task Scheduler
 `%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -file toggle-hotspot.ps1`
 
-## Use Cases  
-
-- 🕒 Run a hotspot automatically at startup  
-- ⏱️ Schedule hotspot availability  
-- 🖱️ Quickly toggle hotspot with a desktop shortcut  
-- 🤖 Integrate with other automation workflows  
-
-## Requirements  
-
+## Requirements
 - Windows 10/11  
 - Administrator privileges  
 - PowerShell 5.1+  
