@@ -4,12 +4,20 @@
 .DESCRIPTION
     A modern PowerShell script to toggle the WiFi hotspot on Windows 10/11
 .NOTES
-    rehauled main function
-    minor fixes
+    added tagging automation
 #>
 
-# Script version
-$scriptVersion = "1.0.16"
+# ==== Script version ====
+$scriptVersion = "1.0.17"
+
+# ==== Configuration ====
+    $configFile    = "$PSScriptRoot\adapter.config"
+    $logFile       = $true
+    $logReverse    = $false
+    $logFilePath   = "$PSScriptRoot\script.log"
+    $restartWiFi   = $false 
+    $forceAsAdmin  = $true
+    $delay         = 30
 
 # FORCE POWERSHELL 5.1 HANDOFF (Must come first to avoid Type errors in PS7)
 if ($PSVersionTable.PSVersion.Major -gt 5) {
@@ -35,15 +43,6 @@ try {
 } catch {
     Write-Warning "WinRT Type loading encountered an issue: $_"
 }
-
-# ==== Configuration ====
-    $configFile    = "$PSScriptRoot\adapter.config"
-    $logFile       = $true
-    $logReverse    = $false
-    $logFilePath   = "$PSScriptRoot\script.log"
-    $restartWiFi   = $false 
-    $forceAsAdmin  = $true
-    $delay         = 30
 
 # ==== WinRT Helper Logic ====
     $RuntimeExtensions = [AppDomain]::CurrentDomain.GetAssemblies() | 
@@ -230,6 +229,7 @@ if (-not (IsRunningFromTerminal)) {
 
 Switch-Hotspot -adapter $targetAdapter
 LogThis "==== Done ===="
+
 
 
 
