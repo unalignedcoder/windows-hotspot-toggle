@@ -34,7 +34,7 @@ try {
 }
 
 # ==== Configuration ====
-    $scriptVersion = "1.0.13"
+    $scriptVersion = "1.0.14"
     $configFile    = "$PSScriptRoot\adapter.config"
     $logFile       = $true
     $logReverse    = $false
@@ -228,3 +228,4 @@ if (-not (IsRunningFromTerminal)) {
 
 Switch-Hotspot -adapter $targetAdapter
 LogThis "==== Done ===="
+
