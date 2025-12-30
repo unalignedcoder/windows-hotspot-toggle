@@ -6,7 +6,7 @@ PowerShell script to toggle the WiFi hotspot on Windows 10/11 without using depr
 
 This script is meant to automatically enable or disable the Windows Hotspot.
 In order for it to properly work and be firewall-firendly, some workarounds have been included:
-the wifi radio is turned off, optionally the adpater itself is reset before operation.
+the wifi radio is turned off and on, optionally the adpater itself is reset before operation.
 
 In our tests this should work at startup as well, so as to have the hotspot always running. 
 
