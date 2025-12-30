@@ -8,6 +8,9 @@
     minor fixes
 #>
 
+# Script version
+$scriptVersion = "1.0.15"
+
 # FORCE POWERSHELL 5.1 HANDOFF (Must come first to avoid Type errors in PS7)
 if ($PSVersionTable.PSVersion.Major -gt 5) {
     # Check if we can even log this yet
@@ -34,7 +37,6 @@ try {
 }
 
 # ==== Configuration ====
-    $scriptVersion = "1.0.14"
     $configFile    = "$PSScriptRoot\adapter.config"
     $logFile       = $true
     $logReverse    = $false
@@ -228,4 +230,5 @@ if (-not (IsRunningFromTerminal)) {
 
 Switch-Hotspot -adapter $targetAdapter
 LogThis "==== Done ===="
+
 
