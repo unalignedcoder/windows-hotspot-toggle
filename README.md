@@ -25,4 +25,6 @@ In our tests this should work at startup as well, so as to have the hotspot alwa
 ## Requirements
 - Windows 10/11  
 - Administrator privileges  
-- PowerShell 5.1+  
+- PowerShell 5.1+
+
+<p align=center>Why, thank you for asking!<br />👉 You can donate to all my projects <a href="https://www.buymeacoffee.com/unalignedcoder" target="_blank" title="buymeacoffee.com">here</a>👈</p>
