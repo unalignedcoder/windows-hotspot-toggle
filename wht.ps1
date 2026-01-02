@@ -8,16 +8,17 @@
 #>
 
 # ==== Script version ====
-$scriptVersion = "1.0.17"
+$scriptVersion = "1.0.18"
 
 # ==== Configuration ====
     $configFile    = "$PSScriptRoot\adapter.config"
     $logFile       = $true
     $logReverse    = $false
     $logFilePath   = "$PSScriptRoot\script.log"
-    $restartWiFi   = $false 
+    $restartWiFi   = $true 
     $forceAsAdmin  = $true
-    $delay         = 30
+    $delayViaScript = $true
+    $delay         = 90
 
 # FORCE POWERSHELL 5.1 HANDOFF (Must come first to avoid Type errors in PS7)
 if ($PSVersionTable.PSVersion.Major -gt 5) {
@@ -159,6 +160,26 @@ try {
         return $false
     }
 
+    # Function to stop/start WireGuard tunnels to prevent registry bloat
+    function Set-WireGuardTunnel {
+        param ([string]$State) # "On" or "Off"
+        
+        $wgPath = "C:\Program Files\WireGuard\wireguard.exe"
+        if (-not (Test-Path $wgPath)) { return }
+
+        # Identify active tunnels
+        # WireGuard often stores tunnel names in the registry or you can specify your tunnel name
+        $tunnelName = "YourTunnelName" # Replace with your actual tunnel name
+
+        if ($State -eq "Off") {
+            LogThis "Closing WireGuard tunnel to prevent stale connections..." -Color "Yellow"
+            Start-Process -FilePath $wgPath -ArgumentList "/uninstalltunnelservice $tunnelName" -Wait -WindowStyle Hidden
+        } else {
+            LogThis "Re-activating WireGuard tunnel..." -Color "Cyan"
+            Start-Process -FilePath $wgPath -ArgumentList "/installtunnelservice $tunnelName" -Wait -WindowStyle Hidden
+        }
+    }
+
     # Main Hotspot Toggle Logic
     function Switch-Hotspot {
         param($adapter)
@@ -189,6 +210,9 @@ try {
                 Send-Notification -Title "Hotspot" -Message "Disabled"
                 return $true
             }
+
+            # Pre-reset cleanup
+            Set-WireGuardTunnel -State "Off"
 
             LogThis "Resetting Radio for Win10 Routing Fix..." -Color "Cyan"
             Set-WifiRadioState -TargetState "Off"
@@ -222,13 +246,18 @@ if ($forceAsAdmin) { RunAsAdmin }
 
 $targetAdapter = Get-WiFiAdapter
 
-if (-not (IsRunningFromTerminal)) {
-    LogThis "Background mode: Delaying $delay sec for system stability..."
+# You can delay here, or via Task Scheduler
+if ($delayViaScript -and -not (IsRunningFromTerminal)) {
+
+    LogThis "Background mode: Delaying $delay seconds."
     Start-Sleep -Seconds $delay
+
 }
 
+# Main Hotspot Toggle
 Switch-Hotspot -adapter $targetAdapter
 LogThis "==== Done ===="
+
 
 
 
